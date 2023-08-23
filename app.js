@@ -32,9 +32,6 @@ app.use(cors());
 
 // Router
 app.use('/api', indexRouter);
-// app.use('/users', usersRouter);
-
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

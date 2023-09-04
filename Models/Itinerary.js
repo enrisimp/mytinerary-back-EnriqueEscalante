@@ -1,3 +1,4 @@
+
 import mongoose from "mongoose";
 
 const itinerarySchema = new mongoose.Schema({

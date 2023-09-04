@@ -22,18 +22,18 @@ export const getCities = async (req, res) => {
 };
 
 export const getCity = async (req, res) => {
-
   try {
     const city = await City.findById(req.params.id).populate({
-      path: 'itineraries',
-      select: '-city -id'
+      path: "itineraries",
+      select: "-city -id",
     });
 
-    res.json({ city: city });
+    res.json(city); // Return the city data directly
   } catch (error) {
     res.status(500).json({ message: error });
   }
 };
+
 
 export const createCity = async (req, res) => {
   try {

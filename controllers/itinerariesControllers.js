@@ -16,21 +16,47 @@ export const getItineraries = async (_, res) => {
 }
 
 export const createItinerary = async (req, res) => {
-    try {
-        const newItinerary = await Itinerary.create(req.body)
-        res.status(201).json({ newItinerary: newItinerary })
-    } catch (error) {
-        res.status(500).json(error)
-    }
-}
+  try {
+    const newItinerary = await Itinerary.create(req.body);
+
+    // Find the city by its ObjectId
+    const city = await City.findById(newItinerary.city);
+
+    // Push the itinerary object into the city's itineraries array
+    city.itineraries.push(newItinerary);
+
+    // Save the city with the updated itineraries array
+    await city.save();
+
+    res.status(201).json({ newItinerary: newItinerary });
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
 export const createItineraries = async (req, res) => {
   try {
-     const addedItineraries = [];
+    const addedItineraries = [];
+
+    // Loop through the provided itinerary data
     for (const item of req.body) {
       const newItinerary = { ...item };
+
+      // Create the itinerary
       const itinerary = await Itinerary.create(newItinerary);
-       addedItineraries.push(itinerary.itinerary);
+
+      // Find the city by its ObjectId
+      const city = await City.findById(itinerary.city);
+
+      // Push the itinerary object into the city's itineraries array
+      city.itineraries.push(itinerary);
+
+      // Save the city with the updated itineraries array
+      await city.save();
+
+      addedItineraries.push(itinerary.itinerary);
     }
+
     res.status(201).json({ success: true, addedItineraries });
   } catch (error) {
     res.status(500).json({ message: error });

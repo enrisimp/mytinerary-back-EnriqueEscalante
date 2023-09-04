@@ -3,7 +3,6 @@ import {
     getItineraries,
     createItinerary,
     getItinerary,
-    createItinerary,
     createItineraries,
     deleteItinerary, 
     updateItinerary, 

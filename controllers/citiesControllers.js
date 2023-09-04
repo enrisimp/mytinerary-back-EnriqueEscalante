@@ -1,4 +1,5 @@
 import City from "../Models/City.js";
+import Itinerary from "../Models/Itinerary.js";
 
 export const getCities = async (req, res) => {
   const query = {};
@@ -7,7 +8,11 @@ export const getCities = async (req, res) => {
     query.city = { $regex: `^${req.query.city}`, $options: "i" };
   }
   try {
-    const cities = await City.find(query);
+    //const cities = await City.find(query);
+    const cities = await City.find().populate({
+      path: 'itineraries',
+      select : '-city -id'
+    })
     // console.log("Queried cities:", cities);
     res.status(200).json({ status: 200, success: true, response: cities });
   } catch (error) {
@@ -19,9 +24,12 @@ export const getCities = async (req, res) => {
 export const getCity = async (req, res) => {
 
   try {
-    const city = await City.findById(req.params.id);
+    const city = await City.findById(req.params.id).populate({
+      path: 'itineraries',
+      select: '-city -id'
+    });
 
-    res.json(city);
+    res.json({ city: city });
   } catch (error) {
     res.status(500).json({ message: error });
   }

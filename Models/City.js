@@ -9,6 +9,7 @@ const citySchema = new mongoose.Schema({
   description: { type: String },
   smalldescription: { type: String },
   featuredLocation: { type: String, required: true },
+  itineraries : [ { type: mongoose.Types.ObjectId, ref: 'Itinerary'}]
 });
 
 // Create the model

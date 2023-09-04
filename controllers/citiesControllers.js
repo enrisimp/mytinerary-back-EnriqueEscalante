@@ -4,7 +4,7 @@ import Itinerary from "../Models/Itinerary.js";
 export const getCities = async (req, res) => {
   const query = {};
   if (req.query.city) {
-    // console.log("Received city query:", req.query.city);
+    console.log("Received city query:", req.query.city);
     query.city = { $regex: `^${req.query.city}`, $options: "i" };
   }
   try {

@@ -48,11 +48,11 @@ export const createItineraries = async (req, res) => {
       // Find the city by its ObjectId
       const city = await City.findById(itinerary.city);
 
-      // Push the itinerary object into the city's itineraries array
-      city.itineraries.push(itinerary);
-
-      // Save the city with the updated itineraries array
-      await city.save();
+      // Use the $push operator to add the new itinerary to the city's itineraries array
+      await City.updateOne(
+        { _id: city._id },
+        { $push: { itineraries: itinerary } }
+      );
 
       addedItineraries.push(itinerary.itinerary);
     }
@@ -62,6 +62,7 @@ export const createItineraries = async (req, res) => {
     res.status(500).json({ message: error });
   }
 };
+
 
 export const getItinerary = async (req, res) => {
 

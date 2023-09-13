@@ -1,4 +1,4 @@
-import User from "../models/User.js";
+import User from "../Models/User.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 export const signUp = async (req, res) => {
@@ -85,3 +85,12 @@ export const signInToken = (req, res) => {
   };
   res.status(200).json({ success: true, user: userResponse });
 };
+
+// export const getUsers = async (_, res) => {
+//   try {
+//     const users = await User.find();
+//     res.status(200).json({ status: 200, success: true, response: users });
+//   } catch (error) {
+//     res.status(500).json({ error: error });
+//   }
+// };

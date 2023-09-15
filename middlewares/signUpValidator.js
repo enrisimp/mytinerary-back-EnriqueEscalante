@@ -3,12 +3,12 @@ import joi from 'joi'
 export const signUpValidator = (req, res, next) =>{
 
     const schema = joi.object( {
-        name : joi.string().min( 3 ).max( 10 ).required().messages({
+        name : joi.string().min( 3 ).max( 15 ).required().messages({
             'string.name' : "El campo nombre debería ser un texto",
             'string.empty' : "El campo nombre es requerido",
-            "string.min" : "El campo nombre requiere 3 caracteres como minimo"
+            'string.min' : "El campo nombre requiere 3 caracteres como minimo"
         }),
-        lastname : joi.string().min( 3 ).max( 10 ).required().messages({
+        lastname : joi.string().min( 3 ).max( 20 ).required().messages({
             'string.name' : "El campo nombre debería ser un texto",
             'string.empty' : "El campo nombre es requerido",
             "string.min" : "El campo nombre requiere 3 caracteres como minimo"

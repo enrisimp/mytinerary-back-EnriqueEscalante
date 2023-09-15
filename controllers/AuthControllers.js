@@ -8,7 +8,7 @@ export const signUp = async (req, res) => {
     if (userInDB) {
       return res
         .status(400)
-        .json({ error: "El email ya esta en uso", success: false });
+        .json({ error: "Email already registered", success: false });
     }
     const passwordHash = bcrypt.hashSync(password, 10);
     const newObj = { ...req.body };
@@ -38,14 +38,14 @@ export const signIn = async (req, res) => {
     if (!userInDB) {
       return res.json({
         success: false,
-        error: "Email o contraseña incorrecta",
+        error: "Email or password incorrect",
       });
     }
     const validPassword = bcrypt.compareSync(password, userInDB.password);
     if (!validPassword) {
       return res.json({
         success: false,
-        error: "Email o contraseña incorrecta",
+        error: "Email or password incorrect",
       });
     }
     const userResponse = {
